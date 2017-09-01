@@ -60,7 +60,11 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
-  
+
+  def serach
+    @users = User.where(name: params[:search][:search_name]).paginate(page: params[:page])
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
