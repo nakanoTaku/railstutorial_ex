@@ -5,7 +5,13 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    @user_form = User.new
+
+    if params[:user]
+      @users = User.where("name like ?", "%#{params[:user][:name]}%").paginate(page: params[:page])
+    else
+      @users = User.paginate(page: params[:page])
+    end
   end
 
   def new
@@ -59,10 +65,6 @@ class UsersController < ApplicationController
     @user  = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
-  end
-
-  def serach
-    @users = User.where(name: params[:search][:search_name]).paginate(page: params[:page])
   end
 
   private
