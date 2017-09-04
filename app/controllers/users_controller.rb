@@ -7,11 +7,7 @@ class UsersController < ApplicationController
   def index
     @user_form = User.new
 
-    if params[:user]
-      @users = User.where("name like ?", "%#{params[:user][:name]}%").paginate(page: params[:page])
-    else
-      @users = User.paginate(page: params[:page])
-    end
+    @users = User.paginate(page: params[:page]).search(params[:search])
   end
 
   def new
@@ -21,11 +17,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    if params[:search]
-      @microposts = @user.microposts.where("content LIKE ?", "%#{params[:search]}%").paginate(page: params[:page])
-    else
-      @microposts = @user.microposts.paginate(page: params[:page])
-    end
+    @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
   end
 
   def create

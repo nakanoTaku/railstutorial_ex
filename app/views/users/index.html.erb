@@ -3,9 +3,11 @@
 
 <%= will_paginate %>
 
-<%= form_for @user_form, url: users_path, method: :get do |f| %>
-  <%= f.text_field :name %>
-  <%= f.submit "Serach", class: "btn btn-primary" %>
+<%= form_tag users_path, method: :get do %>
+  <p>
+    <%= text_field_tag :search %>
+    <%= submit_tag "検索" %>
+  </p>
 <% end %>
 
 <ul class="users">
