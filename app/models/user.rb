@@ -93,6 +93,15 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # ユーザーのあいまい検索
+   def self.search(search)
+     if search
+       where('name LIKE ?', "%#{sanitize_sql_like(search)}%")
+     else
+       all
+     end
+   end
+
   private
 
   def downcase_email

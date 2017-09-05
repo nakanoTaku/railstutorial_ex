@@ -7,6 +7,11 @@ class Micropost < ApplicationRecord
   validate :picture_size
 end
 
+  # ここでできるようにしたいなー
+  # def self.like
+  #   update_attribute(:like, true)
+  # end
+
 private
 
   # アップロードされた画像のサイズをバリデーションする
