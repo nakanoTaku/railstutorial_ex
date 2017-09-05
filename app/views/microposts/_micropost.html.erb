@@ -7,9 +7,15 @@
   </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+  </span>
+  <span class="action">
     <% if current_user?(micropost.user) %>
       <%= link_to "delete", micropost, method: :delete, data: {confirm: "You sure?"} %>
-      <%= link_to "いいね", micropost, method: :PUT %>
+    <% end %>
+    <% if micropost.like %>
+      <%= link_to "いいねを外す", micropost, method: :PUT, class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to "いいね", micropost, method: :PUT, class: 'btn btn-primary' %>
     <% end %>
   </span>
 </li>

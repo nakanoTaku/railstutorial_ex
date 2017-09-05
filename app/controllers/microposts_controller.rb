@@ -23,13 +23,14 @@ class MicropostsController < ApplicationController
   def update
     @micropost = Micropost.find(params[:id])
 
-    unless @micropost.like
+    if @micropost.like
+      @micropost.update_attribute(:like, false)
+      flash[:success] = "No like"
+    else
       @micropost.update_attribute(:like, true)
       flash[:success] = "Good like"
-      redirect_to root_url
-    else
-      render 'user'
     end
+    redirect_to root_url
   end
 
   private
