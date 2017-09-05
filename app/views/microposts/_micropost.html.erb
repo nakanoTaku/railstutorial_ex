@@ -13,9 +13,9 @@
       <%= link_to "delete", micropost, method: :delete, data: {confirm: "You sure?"} %>
     <% end %>
     <% if micropost.like %>
-      <%= link_to "いいねを外す", micropost, method: :PUT, class: 'btn btn-primary' %>
+      <%= fa_icon("heart", text: "いいねを取り消す") %>
     <% else %>
-      <%= link_to "いいね", micropost, method: :PUT, class: 'btn btn-primary' %>
+      <%= fa_icon("heart", text: "いいね") %>
     <% end %>
   </span>
 </li>
