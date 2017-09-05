@@ -5,7 +5,9 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    @user_form = User.new
+
+    @users = User.paginate(page: params[:page]).search(params[:search])
   end
 
   def new
@@ -14,7 +16,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+
+    @microposts = @user.microposts.paginate(page: params[:page]).where('content LIKE ?', "%#{params[:search]}%")
+    # @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
   end
 
   def create
@@ -60,7 +64,7 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
-  
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
