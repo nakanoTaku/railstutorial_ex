@@ -9,13 +9,13 @@
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
   <span class="action">
-    <% if current_user?(micropost.user) %>
-      <%= link_to "delete", micropost, method: :delete, data: {confirm: "You sure?"} %>
-    <% end %>
     <% if micropost.like %>
-      <%= fa_icon("heart", text: "いいねを取り消す") %>
+      <%= link_to fa_icon("heart", text: "1"), micropost, method: :PUT %>
     <% else %>
-      <%= fa_icon("heart", text: "いいね") %>
+      <%= link_to fa_icon("heart-o", text: "0"), micropost, method: :PUT %>
+    <% end %>
+    <% if current_user?(micropost.user) %>
+      <%= link_to fa_icon("trash"), micropost, method: :delete, data: {confirm: "You sure?"} %>
     <% end %>
   </span>
 </li>
