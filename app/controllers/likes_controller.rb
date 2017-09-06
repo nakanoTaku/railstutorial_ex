@@ -7,6 +7,8 @@ class LikesController < ApplicationController
   end
 
   def destroy
+    micropost = Micropost.find(params[:micropost_id])
+
     Like.find_by(user_id: micropost.user_id, micropost_id: micropost.id).destroy
     redirect_to root_path
   end
