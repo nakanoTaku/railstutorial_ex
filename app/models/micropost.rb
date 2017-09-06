@@ -5,12 +5,13 @@ class Micropost < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
   validate :picture_size
+
+  has_many :likes, dependent: :destroy
 end
 
-  # ここでできるようにしたいなー
-  # def self.like
-  #   update_attribute(:like, true)
-  # end
+  def self.like_user(user_id)
+    self.find_by(user_id: user_id)
+  end
 
 private
 

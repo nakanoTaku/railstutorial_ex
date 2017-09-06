@@ -9,10 +9,10 @@
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
   <span class="action">
-    <% if micropost.like %>
-      <%= link_to fa_icon("heart", text: "1"), likes_destroy_path(micropost_id: micropost.id) %>
+    <% unless micropost.like_user(current_user.id) %>
+      <%= link_to fa_icon("heart", text: micropost.likes_count), likes_destroy_path(micropost_id: micropost.id) %>
     <% else %>
-      <%= link_to fa_icon("heart-o", text: "0"), likes_create_path(micropost_id: micropost.id) %>
+      <%= link_to fa_icon("heart-o", text: micropost.likes_count), likes_create_path(micropost_id: micropost.id) %>
     <% end %>
     <% if current_user?(micropost.user) %>
       <%= link_to fa_icon("trash"), micropost, method: :delete, data: {confirm: "You sure?"}, micropost_id: micropost.id  %>
