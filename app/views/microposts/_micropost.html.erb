@@ -9,7 +9,7 @@
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
   <span class="action">
-    <% unless micropost.like_user(current_user.id) %>
+    <% if micropost.like_user(current_user.id) %>
       <%= link_to fa_icon("heart", text: micropost.likes_count), likes_destroy_path(micropost_id: micropost.id) %>
     <% else %>
       <%= link_to fa_icon("heart-o", text: micropost.likes_count), likes_create_path(micropost_id: micropost.id) %>

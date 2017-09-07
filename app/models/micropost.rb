@@ -7,10 +7,10 @@ class Micropost < ApplicationRecord
   validate :picture_size
 
   has_many :likes, dependent: :destroy
-end
 
-  def self.like_user(user_id)
-    self.find_by(user_id: user_id)
+  def like_user(user_id)
+    self.likes.find_by(user_id: user_id)
+    byebug
   end
 
 private
@@ -21,3 +21,4 @@ private
       errors.add(:picture, "should be less than 5MB")
     end
   end
+end
