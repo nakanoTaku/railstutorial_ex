@@ -10,7 +10,6 @@ class Micropost < ApplicationRecord
 
   def like_user(user_id)
     self.likes.find_by(user_id: user_id)
-    byebug
   end
 
 private
