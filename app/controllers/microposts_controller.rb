@@ -19,20 +19,6 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
-  # Likeする
-  def update
-    @micropost = Micropost.find(params[:id])
-
-    if @micropost.like
-      @micropost.update_attribute(:like, false)
-      flash[:success] = "No like"
-    else
-      @micropost.update_attribute(:like, true)
-      flash[:success] = "Good like"
-    end
-    redirect_to root_url
-  end
-
   private
 
     def micropost_parms
