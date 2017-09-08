@@ -13,8 +13,14 @@
   </aside>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>MicroPosts (<%= @user.microposts.count %>)</h3>
+    <% if @microposts.any? %>
+      <h3>MicroPosts (<%= @microposts.count %>)</h3>
+      <%= form_tag user_path, method: :get do %>
+        <p>
+          <%= text_field_tag :search %>
+          <%= submit_tag "検索" %>
+        </p>
+      <% end %>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>

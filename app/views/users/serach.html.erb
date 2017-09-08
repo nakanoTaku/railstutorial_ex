@@ -1,0 +1,15 @@
+<% provide(:title, 'Serach users') %>
+<h1>Serach users</h1>
+
+<%= will_paginate %>
+
+<%= form_for(:search, url: serach_path) do |f| %>
+  <%= f.text_field :search_name %>
+  <%= f.submit "Serach", class: "btn btn-primary" %>
+<% end %>
+
+<ul class="users">
+  <%= render @users %>
+</ul>
+
+<%= will_paginate %>

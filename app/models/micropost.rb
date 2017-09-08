@@ -12,6 +12,15 @@ class Micropost < ApplicationRecord
     self.likes.find_by(user_id: user_id)
   end
 
+  # ユーザーのあいまい検索
+  def self.search(search)
+    if search
+      where('content LIKE ?', "%#{search}%")
+    else
+      all
+    end
+  end
+
 private
 
   # アップロードされた画像のサイズをバリデーションする

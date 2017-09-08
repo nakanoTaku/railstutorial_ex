@@ -94,13 +94,13 @@ class User < ApplicationRecord
   end
 
   # ユーザーのあいまい検索
-   def self.search(search)
-     if search
-       where('name LIKE ?', "%#{sanitize_sql_like(search)}%")
-     else
-       all
-     end
-   end
+  def self.search(search)
+    if search
+      where('name LIKE ?', "%#{sanitize_sql_like(search)}%")
+    else
+      all
+    end
+  end
 
   private
 
