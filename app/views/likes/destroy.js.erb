@@ -1,3 +1,2 @@
-$(".micropost<%= @micropost.id %> i").addClass("fa-heart-o");
-$(".micropost<%= @micropost.id %> i").removeClass("fa-heart");
-// $(".micropost<%= @micropost.id %>").text("<%= @micropost.likes_count %>");
+$("#like").html("<%= escape_javascript(render 'microposts/hart', micropost: @micropost) %>");
+// console.log("ajaxで処理")

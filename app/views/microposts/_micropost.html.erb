@@ -9,11 +9,9 @@
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
   <span class="action">
-    <% if micropost.like_user(current_user.id) %>
-      <%= link_to fa_icon("heart", text: micropost.likes_count), likes_destroy_path(micropost_id: micropost.id), remote: true, class: "micropost#{micropost.id}" %>
-    <% else %>
-      <%= link_to fa_icon("heart-o", text: micropost.likes_count), likes_create_path(micropost_id: micropost.id), remote: true, class: "micropost#{micropost.id}"  %>
-    <% end %>
+    <span id="like">
+      <%= render "microposts/hart", micropost: micropost %>
+    </span>
     <% if current_user?(micropost.user) %>
       <%= link_to fa_icon("trash"), micropost, method: :delete, data: {confirm: "You sure?"}, micropost_id: micropost.id  %>
     <% end %>

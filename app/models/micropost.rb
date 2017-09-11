@@ -8,6 +8,7 @@ class Micropost < ApplicationRecord
 
   has_many :likes, dependent: :destroy
 
+  # いいねしたかしてないかを確認する
   def like_user(user_id)
     self.likes.find_by(user_id: user_id)
   end
