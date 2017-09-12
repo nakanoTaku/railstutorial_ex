@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 
   def index
     @user_form = User.new
-
     @users = User.paginate(page: params[:page]).search(params[:search])
   end
 

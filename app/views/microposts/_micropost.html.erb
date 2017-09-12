@@ -7,8 +7,13 @@
   </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+  </span>
+  <span class="action">
+    <span id="like">
+      <%= render "microposts/hart", micropost: micropost %>
+    </span>
     <% if current_user?(micropost.user) %>
-      <%= link_to "delete", micropost, method: :delete, data: {confirm: "You sure?"} %>
+      <%= link_to fa_icon("trash"), micropost, method: :delete, data: {confirm: "You sure?"}, micropost_id: micropost.id  %>
     <% end %>
   </span>
 </li>

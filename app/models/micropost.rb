@@ -5,7 +5,13 @@ class Micropost < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
   validate :picture_size
-end
+
+  has_many :likes, dependent: :destroy
+
+  # いいねしたかしてないかを確認する
+  def like_user(user_id)
+    self.likes.find_by(user_id: user_id)
+  end
 
   # ユーザーのあいまい検索
   def self.search(search)
@@ -24,3 +30,4 @@ private
       errors.add(:picture, "should be less than 5MB")
     end
   end
+end
