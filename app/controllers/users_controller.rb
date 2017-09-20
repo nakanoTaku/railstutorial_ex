@@ -15,8 +15,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
-    @microposts = @user.microposts.paginate(page: params[:page]).where('content LIKE ?', "%#{params[:search]}%")
+    @microposts = @user.myfeed.paginate(page: params[:page])
+      .where('content LIKE ?', "%#{params[:search]}%")
+      .reorder(updated_at: :DESC)
     # @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
   end
 
