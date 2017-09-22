@@ -1,4 +1,7 @@
 <li id="micropost-<%= micropost.id %>">
+  <% if micropost.retweet_user(current_user) %>
+    <p><%= fa_icon("retweet green", text: "自分がリツイート") %></p>
+  <% end %>
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="content">

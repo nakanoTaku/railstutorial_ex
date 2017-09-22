@@ -71,11 +71,17 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # 自分と自分がフォローしているユーザーのマイクロポストを取得する
+  # マイクロポストを取得する
+   # 自分と自分がフォローしているユーザー
+   # 自分がリツイート
+   # フォローしているユーザーがリツイート（未実装）
   def feed
     following_ids = "SELECT followed_id FROM relationships
       WHERE follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids})
+    retweet_ids = "SELECT micropost_id FROM retweets
+      WHERE user_id = :user_id"
+
+    Micropost.where("id IN (#{retweet_ids}) OR user_id IN (#{following_ids})
       OR user_id = :user_id", user_id: id)
   end
 
