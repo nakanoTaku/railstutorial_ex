@@ -76,20 +76,27 @@ class User < ApplicationRecord
    # 自分がリツイート
    # フォローしているユーザーがリツイート（未実装）
   def feed
-    following_ids = "SELECT followed_id FROM relationships
-      WHERE follower_id = :user_id"
-    retweet_ids = "SELECT micropost_id FROM retweets
-      WHERE user_id = :user_id"
-
-    Micropost.where("id IN (#{retweet_ids}) OR user_id IN (#{following_ids})
-      OR user_id = :user_id", user_id: id)
+    # following_ids = "SELECT followed_id FROM relationships
+    #   WHERE follower_id = :user_id"
+    # retweet_ids = "SELECT micropost_id FROM retweets
+    #   WHERE user_id = :user_id"
+    #
+    # Micropost.where("id IN (#{retweet_ids}) OR user_id IN (#{following_ids})
+    #   OR user_id = :user_id", user_id: id)
+    Micropost.where(id:
+      (self.microposts.pluck(:id) +
+      Retweet.where(user_id: self.id).pluck(:micropost_id) +
+      Micropost.where(user_id: self.followers.pluck(:id)).pluck(:id) +
+      Retweet.where(user_id: self.followers.pluck(:id)).pluck(:id)
+      )
+    )
   end
 
   # 自分が投稿、リツイートしたマイクロポストを取得する
   def myfeed
     retweet_ids = "SELECT micropost_id FROM retweets
       WHERE user_id = :user_id"
-    Micropost.where("id IN (#{retweet_ids}) OR user_id = :user_id", user_id: self.id).order(:updated_at)
+    Micropost.where("id IN (#{retweet_ids}) OR user_id = :user_id", user_id: self.id)
   end
 
   # ユーザーをフォローする
