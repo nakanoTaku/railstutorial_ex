@@ -22,7 +22,7 @@
         </p>
       <% end %>
       <ol class="microposts">
-        <%= render @microposts %>
+        <%= render partial: "microposts/show_micropost", :collection => @microposts, :as => "micropost" %>
       </ol>
       <%= will_paginate @microposts %>
     <% end %>

@@ -71,11 +71,25 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  # マイクロポストを取得する
+   # 自分と自分がフォローしているユーザー
+   # 自分がリツイート
+   # フォローしているユーザーがリツイート
   def feed
-    following_ids = "SELECT followed_id FROM relationships
-      WHERE follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids})
-      OR user_id = :user_id", user_id: id)
+    Micropost.where(id:
+      (self.microposts.pluck(:id) +
+      Retweet.where(user_id: self.id).pluck(:micropost_id) +
+      Micropost.where(user_id: self.followers.pluck(:id)).pluck(:id) +
+      Retweet.where(user_id: self.followers.pluck(:id)).pluck(:id)
+      )
+    )
+  end
+
+  # 自分が投稿、リツイートしたマイクロポストを取得する
+  def myfeed
+    retweet_ids = "SELECT micropost_id FROM retweets
+      WHERE user_id = :user_id"
+    Micropost.where("id IN (#{retweet_ids}) OR user_id = :user_id", user_id: self.id)
   end
 
   # ユーザーをフォローする

@@ -7,10 +7,26 @@ class Micropost < ApplicationRecord
   validate :picture_size
 
   has_many :likes, dependent: :destroy
+  has_many :retweets, dependent: :destroy
 
   # いいねしたかしてないかを確認する
   def like_user(user_id)
     self.likes.find_by(user_id: user_id)
+  end
+
+  # シェア=リツイートしたかしてないか確認する
+  def retweet_user(user_id)
+    self.retweets.find_by(user_id: user_id)
+  end
+
+  # リツイートした人を返す
+  def retweet_users
+    u = User.where(id: self.retweets.pluck(:user_id)).pluck(:name)
+    if u && u.count > 2
+      "#{u.first}と#{u.second}さん他#{u.count - 2}さんがリツイートしました。"
+    else
+      "#{u.join("と")}さんがリツイートしました。"
+    end
   end
 
   # ユーザーのあいまい検索

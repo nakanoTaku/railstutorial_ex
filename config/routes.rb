@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  get 'retweets/create'
+  get 'retweets/destroy'
+
   get 'likes/create'
   get 'likes/destroy'
 
   get 'password_resets/new'
-
   get 'password_resets/edit'
 
   get 'sessions/new'
