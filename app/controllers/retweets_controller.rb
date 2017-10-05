@@ -1,4 +1,4 @@
-class RetwwetsController < ApplicationController
+class RetweetsController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def create

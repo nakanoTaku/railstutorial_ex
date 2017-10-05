@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class RetwwetsControllerTest < ActionDispatch::IntegrationTest
+class RetweetsControllerTest < ActionDispatch::IntegrationTest
   test "should get create" do
-    get retwwets_create_url
+    get retweets_create_url
     assert_response :success
   end
 
   test "should get destroy" do
-    get retwwets_destroy_url
+    get retweets_destroy_url
     assert_response :success
   end
 

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'retwwets/create'
-  get 'retwwets/destroy'
+  get 'retweets/create'
+  get 'retweets/destroy'
 
   get 'likes/create'
   get 'likes/destroy'

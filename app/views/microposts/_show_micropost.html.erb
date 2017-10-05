@@ -16,9 +16,9 @@
       <%= render "microposts/hart", micropost: micropost %>
     </span>
     <% if micropost.retweet_user(current_user) %>
-      <%= link_to fa_icon("retweet green", text: micropost.retweets.count), retwwets_destroy_path(micropost_id: micropost.id) %>
+      <%= link_to fa_icon("retweet green", text: micropost.retweets.count), retweets_destroy_path(micropost_id: micropost.id) %>
     <% else %>
-      <%= link_to fa_icon("retweet", text: micropost.retweets.count), retwwets_create_path(micropost_id: micropost.id) %>
+      <%= link_to fa_icon("retweet", text: micropost.retweets.count), retweets_create_path(micropost_id: micropost.id) %>
     <% end %>
     <% if current_user?(micropost.user) %>
       <%= link_to fa_icon("trash"), micropost, method: :delete, data: {confirm: "You sure?"}, micropost_id: micropost.id  %>
