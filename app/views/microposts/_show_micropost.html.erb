@@ -1,0 +1,27 @@
+<li id="micropost-<%= micropost.id %>">
+  <% if micropost.retweets.present? && micropost.retweet_user(current_user) %>
+    <p><%= fa_icon("retweet green", text: "自分がリツイート") %></p>
+  <% end %>
+  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+  <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  <span class="content">
+    <%= micropost.content %>
+    <%= image_tag micropost.picture.url if micropost.picture? %>
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+  </span>
+  <span class="action">
+    <span id="like">
+      <%= render "microposts/hart", micropost: micropost %>
+    </span>
+    <% if micropost.retweet_user(current_user) %>
+      <%= link_to fa_icon("retweet green", text: micropost.retweets.count), retwwets_destroy_path(micropost_id: micropost.id) %>
+    <% else %>
+      <%= link_to fa_icon("retweet", text: micropost.retweets.count), retwwets_create_path(micropost_id: micropost.id) %>
+    <% end %>
+    <% if current_user?(micropost.user) %>
+      <%= link_to fa_icon("trash"), micropost, method: :delete, data: {confirm: "You sure?"}, micropost_id: micropost.id  %>
+    <% end %>
+  </span>
+</li>
