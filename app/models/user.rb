@@ -74,15 +74,8 @@ class User < ApplicationRecord
   # マイクロポストを取得する
    # 自分と自分がフォローしているユーザー
    # 自分がリツイート
-   # フォローしているユーザーがリツイート（未実装）
+   # フォローしているユーザーがリツイート
   def feed
-    # following_ids = "SELECT followed_id FROM relationships
-    #   WHERE follower_id = :user_id"
-    # retweet_ids = "SELECT micropost_id FROM retweets
-    #   WHERE user_id = :user_id"
-    #
-    # Micropost.where("id IN (#{retweet_ids}) OR user_id IN (#{following_ids})
-    #   OR user_id = :user_id", user_id: id)
     Micropost.where(id:
       (self.microposts.pluck(:id) +
       Retweet.where(user_id: self.id).pluck(:micropost_id) +
